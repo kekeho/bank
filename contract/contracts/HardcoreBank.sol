@@ -40,8 +40,8 @@ contract HardcoreBank is IERC777Recipient {
     IERC1820Registry private _erc1820Registry = IERC1820Registry(0x1820a4B7618BdE71Dce8cdc73aAB6C95905faD24);
 
     Config[] private accountList;  // ID => account
+    mapping(address => uint256[]) private accountListParToken;  // ERC777 Token address => ID List
     mapping(address => uint256[]) private userAccountList;  // user adderss => ID list
-
     mapping(uint256 => RecvTransaction[]) private recvList;  // ID => RecvTransaction[]
 
 
@@ -61,6 +61,7 @@ contract HardcoreBank is IERC777Recipient {
                    monthlyRemittrance, block.timestamp, false)
         );
         userAccountList[msg.sender].push(id);
+        accountListParToken[token].push(id);
     }
 
 
@@ -175,15 +176,30 @@ contract HardcoreBank is IERC777Recipient {
         return totalAmount;
     }
 
+    function distributedAmount(uint256 id) public view returns (uint256) {
+        Config memory account = accountList[id];
+
+        uint256 sum = 0;
+        for (uint256 i = 0; i < recvList[id].length; i++) {
+            sum = sum.add(recvList[id][i].amount);
+        }
+
+        if (account.disabled) {
+            return sum;
+        }
+
+        return sum.sub(_balanceOf(id));
+    }
+
 
     function collectedAmount(address tokenContractAddress) public view returns (uint256) {
         require(isGrandOwner());
 
         uint256 result = 0;
 
-        for (uint256 id = 0; id < accountList.length; id=id.add(1)) {
+        for(uint256 i = 0; i < accountListParToken[tokenContractAddress].length; i=i.add(1)) {
+            uint256 id = accountListParToken[tokenContractAddress][i];
             Config memory account = accountList[id];
-            if (account.tokenContractAddress != tokenContractAddress) { continue; }
 
             uint256 sum = 0;
             for (uint256 j = 0; j < recvList[id].length; j=j.add(1)) {
@@ -193,22 +209,11 @@ contract HardcoreBank is IERC777Recipient {
             if (account.disabled) {
                 result = result.add(sum);
             } else {
-                result = result.add(sum.sub(_balanceOf(id)));
+                result = result.add(distributedAmount(id));
             }
         }
 
         return result;
-    }
-
-
-    function collect(address tokenContractAddress) public {
-        require(isGrandOwner());
-
-        uint256 amount = collectedAmount(tokenContractAddress);
-        require(amount > 0);
-        
-        IERC777 tokenContract = IERC777(tokenContractAddress);
-        tokenContract.send(_owner, amount, bytes(""));
     }
 
 
