@@ -164,7 +164,7 @@ contract HardcoreBank is IERC777Recipient {
                     totalAmount = totalAmount.add(monthTotal);
                 } else {
                     totalAmount = totalAmount.add(monthTotal);  // totalAmount += monthTotal
-                    totalAmount = totalAmount.sub(totalAmount.div(5));  // totalAmount -= totalAmount/5
+                    totalAmount = totalAmount.sub(totalAmount.div(20));  // totalAmount -= totalAmount/5
                 }
             }
 
