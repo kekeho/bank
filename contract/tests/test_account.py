@@ -195,13 +195,18 @@ def test_balanceOf_multi(deploy_erc1820_register):
     balance = c.balanceOf(id, {'from': accounts[1]})
     assert balance == (amount_0+amount_1 + amount_2)
 
-    testlib.increaseTime(60*60*24*30)  # skip 31days
+    testlib.increaseTime(60*60*24*31)  # skip 31days
     balance = c.balanceOf(id, {'from': accounts[1]})
     assert balance == math.ceil((amount_0+amount_1+amount_2) * 0.95)  # -5%
 
-    testlib.increaseTime(60*60*24*30)  # skip 31days
+    testlib.increaseTime(60*60*24*31)  # skip 31days
     balance = c.balanceOf(id, {'from': accounts[1]})
     assert balance == math.ceil(math.ceil((amount_0+amount_1+amount_2) * 0.95) * 0.95)  # -5%
+
+    # collectedAmountチェック
+    sum_amount = amount_0 + amount_1 + amount_2
+    collected_amount = sum_amount - math.ceil(math.ceil((amount_0+amount_1+amount_2) * 0.95) * 0.95)
+    assert c.collectedAmount(st.address) == collected_amount
 
 
 def test_balanceOf_over_targetAmount(deploy_erc1820_register):
@@ -259,10 +264,6 @@ def test_collectedAmount(deploy_erc1820_register):
     monthly = 1e5
     c.createAccount(name, description, token, total_amount, monthly, {'from': accounts[1]})
     st_2.send(c.address, 1e10, convert.to_bytes(2), {'from': accounts[0]})
-
-    # isGrandOwner check
-    with brownie.reverts():
-        c.collectedAmount(st_1.address, {'from': accounts[1]})
     
     assert 0 == c.collectedAmount(st_1.address, {'from': accounts[0]})
     assert 0 == c.collectedAmount(st_2.address, {'from': accounts[0]})

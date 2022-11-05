@@ -121,11 +121,13 @@ contract HardcoreBank is IERC777Recipient {
 
     function balanceOf(uint256 id) public view returns (uint256) {
         require(isOwner(id));
-        return _balanceOf(id);
+        uint256 basicBalance = _balanceOfWithoutDistributed(id);
+        uint256 additionalBalance = 0;  // TODO: 分配された分を計算
+        return basicBalance.add(additionalBalance);
     }
 
 
-    function _balanceOf(uint256 id) private view returns (uint256) {
+    function _balanceOfWithoutDistributed(uint256 id) private view returns (uint256) {
         require(id < accountList.length);
         Config memory accountConfig = accountList[id];
         require(accountConfig.disabled == false);
@@ -188,25 +190,23 @@ contract HardcoreBank is IERC777Recipient {
             return sum;
         }
 
-        return sum.sub(_balanceOf(id));
+        return sum.sub(_balanceOfWithoutDistributed(id));
     }
 
 
     function collectedAmount(address tokenContractAddress) public view returns (uint256) {
-        require(isGrandOwner());
-
+        // Hardcore Bankにおける、没収したトークンの総量
         uint256 result = 0;
 
         for(uint256 i = 0; i < accountListParToken[tokenContractAddress].length; i=i.add(1)) {
             uint256 id = accountListParToken[tokenContractAddress][i];
             Config memory account = accountList[id];
 
-            uint256 sum = 0;
-            for (uint256 j = 0; j < recvList[id].length; j=j.add(1)) {
-                sum = sum.add(recvList[id][j].amount);
-            }
-
             if (account.disabled) {
+                uint256 sum = 0;
+                for (uint256 j = 0; j < recvList[id].length; j=j.add(1)) {
+                    sum = sum.add(recvList[id][j].amount);
+                }
                 result = result.add(sum);
             } else {
                 result = result.add(distributedAmount(id));
