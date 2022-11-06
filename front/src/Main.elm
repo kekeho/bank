@@ -227,8 +227,6 @@ update msg model =
                     else
                         (model, Cmd.none)
 
-
-
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.batch

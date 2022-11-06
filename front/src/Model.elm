@@ -150,7 +150,6 @@ onlyHex str =
             onlyHex <| String.slice 1 (String.length str) str
         else
             False
-           
 
 -- Json
 
