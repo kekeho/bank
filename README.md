@@ -6,6 +6,9 @@
 # 使用したtech stacks
 
 ![images](https://user-images.githubusercontent.com/89442945/200168205-d05e661f-d199-4851-9ddd-60f404e3b7e2.png)
+![Solidity-thumbnail](https://user-images.githubusercontent.com/89442945/200168555-3e16ff19-18cb-4bee-b24d-8e7db0d84fbf.png)
+
+
 
 
 ## status
