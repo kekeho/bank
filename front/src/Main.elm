@@ -292,6 +292,9 @@ navbar =
         ]
 
 
+{-
+これはできた？？
+-}
 notFoundView : Browser.Document Msg
 notFoundView =
     { title = "Not Found"
