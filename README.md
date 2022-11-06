@@ -1,4 +1,6 @@
 # hardcore-bank 🏦
+![1B46C692-B35E-4DC2-95FB-154A1D68DABF](https://user-images.githubusercontent.com/89442945/200172006-2ef55618-cfdd-4411-8c1a-d4cd1c0d2e8c.jpg)
+
 
 # 🎥作品動画紹介
 
