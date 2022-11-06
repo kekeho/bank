@@ -17,10 +17,10 @@
   毎月貯金する目標額を決め、目標に達成できなければ貯金が5%減少し、達成できれば達成できなかった人達の貯金から5%減少した分が配分されるサービスです
 
 # ✅解決できること
-
+　　　　・貯金が苦手な人でも貯金する習慣が身につくようになることです！
+  
 # ✨今後の展望
-
-
+　　　　　
 # 使用したtech stacks
 ![html-css-logo](https://user-images.githubusercontent.com/89442945/200168625-51bbcf6d-6b8d-4527-bfd8-8c74e2462b40.jpeg)
 ![images](https://user-images.githubusercontent.com/89442945/200168205-d05e661f-d199-4851-9ddd-60f404e3b7e2.png)
