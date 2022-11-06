@@ -7,13 +7,8 @@
 ![html-css-logo](https://user-images.githubusercontent.com/89442945/200168625-51bbcf6d-6b8d-4527-bfd8-8c74e2462b40.jpeg)
 ![images](https://user-images.githubusercontent.com/89442945/200168205-d05e661f-d199-4851-9ddd-60f404e3b7e2.png)
 ![Solidity-thumbnail](https://user-images.githubusercontent.com/89442945/200168555-3e16ff19-18cb-4bee-b24d-8e7db0d84fbf.png)
+![Eth2 0-1](https://user-images.githubusercontent.com/89442945/200169380-58c30b50-fccd-4d9e-a78d-2debe69fbd28.png)
 
-
-
-
-## status
-
-他ブランチで開発中
 
 ## Contract
 
@@ -33,8 +28,6 @@ brownie pm install kekeho/BokkyPooBahsDateTimeLibrary@1.02
 cd ./contract
 brownie run deploy
 ```
-
-## Front
 
 ### build
 
