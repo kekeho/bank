@@ -3,9 +3,11 @@
 貯金を頑張っていきたいという機運があるので, 僕にちゃんと動機づけをしてくれる貯金箱を錬成する.
 
 
-#使用したtech stacks
+# 使用したtech stacks
 
 ![images](https://user-images.githubusercontent.com/89442945/200168205-d05e661f-d199-4851-9ddd-60f404e3b7e2.png)
+
+![Solidity-thumbnail](https://user-images.githubusercontent.com/89442945/200168251-327b5fb7-a5c9-42b7-a4d9-1938ba4d814a.png)
 
 ## status
 
