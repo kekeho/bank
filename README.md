@@ -3,9 +3,8 @@
 
 
 # 🎥作品動画紹介
+[https://www.loom.com/share/28c16bf494e04881b620e4fb5a785094](https://www.loom.com/share/28c16bf494e04881b620e4fb5a785094)
 
-<iframe src="https://www.loom.com/embed/28c16bf494e04881b620e4fb5a785094" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
-</iframe>
 
 # 💪製品概要
 貯金を頑張っていきたいという人のために, 自分自身にちゃんと動機づけをしてくれる貯金箱です！！
