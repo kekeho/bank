@@ -12,12 +12,14 @@ import React from "react";
 //     , depositField : DepositField
 // }
 
+type Address :String
 
 //alias accountの部分
-export type Account = { id : String
+export type Account = { 
+	id : String
     , subject : String
     , description : String
-    , contractAddress : Address
+    , contractAddress : Address 
     , tokenName : String
     , tokenSymbol : String
     , targetAmount : String 
@@ -29,11 +31,12 @@ export type Account = { id : String
 export type  DepositField = { 
 	  value : Float
     , tokenBalance : String
-    , amountError : Maybe String
+    , amountError :String //Maybe使ってあったけどMaybeってなんや
     , result : Bool
     }
+
 //alias addfieldの部分
-export type AddField =    { 
+export type AddField = { 
 	subject : String
     , description : String
     , contractAddress : Address
@@ -42,7 +45,3 @@ export type AddField =    {
     , errors : List [AddField, String] //直し方がわからん
     , sending : Bool
     }
-
-
-
-
