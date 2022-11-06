@@ -197,11 +197,11 @@ def test_balanceOf_multi(deploy_erc1820_register):
 
     testlib.increaseTime(60*60*24*30)  # skip 31days
     balance = c.balanceOf(id, {'from': accounts[1]})
-    assert balance == math.ceil((amount_0+amount_1+amount_2) * 0.8)
+    assert balance == math.ceil((amount_0+amount_1+amount_2) * 0.95)  # -5%
 
     testlib.increaseTime(60*60*24*30)  # skip 31days
     balance = c.balanceOf(id, {'from': accounts[1]})
-    assert balance == math.ceil(math.ceil((amount_0+amount_1+amount_2) * 0.8) * 0.8)
+    assert balance == math.ceil(math.ceil((amount_0+amount_1+amount_2) * 0.95) * 0.95)  # -5%
 
 
 def test_balanceOf_over_targetAmount(deploy_erc1820_register):
@@ -268,8 +268,8 @@ def test_collectedAmount(deploy_erc1820_register):
     assert 0 == c.collectedAmount(st_2.address, {'from': accounts[0]})
     
     testlib.increaseTime(60*60*24*62)  # skip 31days
-    assert math.floor(1e10*0.2) == c.collectedAmount(st_1.address, {'from': accounts[0]})
-    assert math.floor(1e10*0.2*2) == c.collectedAmount(st_2.address, {'from': accounts[0]})
+    assert math.floor(1e10*0.05) == c.collectedAmount(st_1.address, {'from': accounts[0]})
+    assert math.floor(1e10*0.05*2) == c.collectedAmount(st_2.address, {'from': accounts[0]})
 
 
 def test_withdraw_0():
@@ -319,7 +319,7 @@ def test_withdraw_1():
     with brownie.reverts():
         c.balanceOf(0, {'from': accounts[1]})  # disabled
 
-    assert math.ceil(0.8*(total_amount//2)) + total_amount == st.balanceOf(accounts[1])
+    assert math.ceil(0.95*(total_amount//2)) + total_amount == st.balanceOf(accounts[1])
 
 
 def test_collect():
@@ -342,4 +342,4 @@ def test_collect():
 
     testlib.increaseTime(60*60*24*62)
     c.collect(st.address)
-    assert initial_amount - (total_amount//2 * 0.8) == st.balanceOf(accounts[0])
+    assert initial_amount - (total_amount//2 * 0.95) == st.balanceOf(accounts[0])
