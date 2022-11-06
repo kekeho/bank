@@ -19,7 +19,6 @@
 # ✅解決できること
 　　　　・貯金が苦手な人でも貯金する習慣が身につくようになることです！
   
-# ✨今後の展望
 　　　　　
 # 使用したtech stacks
 ![html-css-logo](https://user-images.githubusercontent.com/89442945/200168625-51bbcf6d-6b8d-4527-bfd8-8c74e2462b40.jpeg)
