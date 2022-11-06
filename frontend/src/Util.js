@@ -25,6 +25,13 @@ export type Account = { id : String
     , created : Int  
     , balance : String 
 }
+
+export type  DepositField = { 
+	  value : Float
+    , tokenBalance : String
+    , amountError : Maybe String
+    , result : Bool
+    }
 //alias addfieldの部分
 export type AddField =    { 
 	subject : String
@@ -35,5 +42,7 @@ export type AddField =    {
     , errors : List [AddField, String] //直し方がわからん
     , sending : Bool
     }
+
+
 
 
