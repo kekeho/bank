@@ -355,7 +355,7 @@ balanceView account =
         target = case balanceToFloatStr 18 account.targetAmount of
             Just x -> x
             Nothing -> "NA"
-        monthly = case balanceToFloatStr 18 (Debug.log "month" account.monthlyRemittrance) of
+        monthly = case balanceToFloatStr 18 account.monthlyRemittrance of
             Just x -> x
             Nothing -> "NA"
     in
@@ -376,7 +376,7 @@ balanceView account =
                 [ td []
                     [ text "Monthly Remittrance:" ]
                 , td [ class "val" ]
-                    [ text <| Debug.log "MONTHLY" monthly
+                    [ text monthly
                     , span [ class "token-symbol" ] [ text account.tokenSymbol ]
                     ]
                 ]
