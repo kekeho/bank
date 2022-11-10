@@ -355,7 +355,7 @@ balanceView account =
         target = case balanceToFloatStr 18 account.targetAmount of
             Just x -> x
             Nothing -> "NA"
-        monthly = case balanceToFloatStr 18 account.monthlyRemittrance of
+        monthly = case balanceToFloatStr 18 (Debug.log "month" account.monthlyRemittrance) of
             Just x -> x
             Nothing -> "NA"
     in
@@ -376,7 +376,7 @@ balanceView account =
                 [ td []
                     [ text "Monthly Remittrance:" ]
                 , td [ class "val" ]
-                    [ text monthly
+                    [ text <| Debug.log "MONTHLY" monthly
                     , span [ class "token-symbol" ] [ text account.tokenSymbol ]
                     ]
                 ]
@@ -560,7 +560,7 @@ balanceToFloatStr decimal strBalance =
     BigInt.fromIntString strBalance
         |> andThen (\x -> Just <| BigInt.div x d)
         |> andThen (\x -> Just <| BigInt.toString x)
-        |> andThen (\x -> Just <| x ++ "." ++ (String.slice (String.length x) (String.length strBalance) strBalance))
+        |> andThen (\x -> Just <| x ++ "." ++ (String.slice (String.length x - 1) (String.length strBalance) strBalance))
         |> andThen (\x -> Just <| dropRightZero x)
         |> andThen (\x -> Just <| if String.endsWith "." x then x ++ "0" else x )
 
