@@ -8,7 +8,7 @@ let accounts;
 let hardcoreBank;
 let erc777abi;
 
-const hardcoreBankAddress = '0xA1174cA95E9B7cbA9c4cDD89f5Af2d077b18761d';
+const hardcoreBankAddress = '0x5b79a1f130B4C5869e41bb88ec03e6fA1d069243';
 
 
 function createAccount(json) {
@@ -85,18 +85,24 @@ app.ports.getTokenBalance.subscribe(getTokenBalance);
 
 
 async function _deposit(data) {
-    // TODO: 謎のエラーを吐いて死ぬ
     let tokenContract = new web3.eth.Contract(erc777abi, data.tokenContractAddress);
-    tokenContract.methods.send(hardcoreBankAddress, data.amount, web3.utils.fromDecimal(data.id))
-        .send({
-            'from': accounts[0],
+    let idHex = '0x' + data.id.toString(16).padStart(64, 0) // byte32 -> uint256
+
+    tokenContract.methods.send(hardcoreBankAddress, data.amount, idHex)
+        .estimateGas({'from': accounts[0]})
+        .then(function(gasAmount) {
+            tokenContract.methods.send(hardcoreBankAddress, data.amount, idHex)
+                .send({
+                    'from': accounts[0],
+                    'gas': gasAmount + 1000,
+                })
+                .then((result) => {
+                    app.ports.depositDone.send(true);
+                })
+                .catch((err) => {
+                    app.ports.depositDone.send(false);
+                });
         })
-        .then((result) => {
-            app.ports.depositDone.send(true);
-        })
-        .catch((err) => {
-            app.ports.depositDone.send(false);
-        });
 }
 function deposit(data) {
     _deposit(data);
